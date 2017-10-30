@@ -20,20 +20,19 @@
 
 ### CF model experiment
 1. top-5 recommendation for tuning the number of neighbor (n)
-    ** user-based CF
-    ** item-based CF
-    ** how to pick the right number? (ROC, accuracy, precision, recall, or all)
+    * user-based CF
+    * item-based CF
+    * how to pick the right number? (ROC, accuracy, precision, recall, or all)
 
 ### MF model experiment
 1. top-5 recommendation for tuning the number of columns (m)
-    ** predict the rating and recommend based on the ratings
-    (** use latent features and fits into regression model for predict ratings)
-    ** how to pick the right number? (ROC, accuracy, precision, recall, RMSE or all)
-
+    * predict the rating and recommend based on the ratings
+    * how to pick the right number? (ROC, accuracy, precision, recall, RMSE or all)
+    * use latent features and fits into regression model for predict ratings (optional)
 
 ### Comparison between all models
 1. Hypothesis testing for all performance metrics
 2. Precision of all models with respect to top-k
-    ** CF
-    ** MF 
-    ** MF + CF
+    * CF
+    * MF 
+    * MF + CF
