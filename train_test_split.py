@@ -30,11 +30,11 @@ if __name__ == "__main__":
             train_data[i] = train_data[i].append(u_log[:math.floor(n_train*i/k)])
             train_data[i] = train_data[i].append(u_log[math.floor(n_train*(i+1)/k):])
 
-    test_data.to_csv(path_or_buf = "test.dat", sep="\t", header = False, index=False)
+    test_data.to_csv(path_or_buf = "./data/testing/test.dat", sep="\t", header = False, index=False)
 
     for i in range(k):
-        val_data[i].to_csv(path_or_buf = "validation_"+str(i+1)+".dat", sep="\t", header = False, index=False)
-        train_data[i].to_csv(path_or_buf = "train_"+str(i+1)+".dat", sep="\t", header = False, index=False)
+        val_data[i].to_csv(path_or_buf = "./data/validation/validation_"+str(i+1)+".dat", sep="\t", header = False, index=False)
+        train_data[i].to_csv(path_or_buf = "./data/training/train_"+str(i+1)+".dat", sep="\t", header = False, index=False)
 
     # n_train = 10-2
     # for  i in range(k):

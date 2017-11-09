@@ -40,7 +40,6 @@ if __name__ == "__main__":
     max_k = int(sys.argv[7])
     delta_k = int(sys.argv[8])
 
-
     if status == "train":
         for i in range(1, num_train + 1):
             model = ItemCF('./train_{}.dat'.format(i))
