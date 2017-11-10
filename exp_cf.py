@@ -1,6 +1,9 @@
 import codecs
 import sys
 import pickle
+import math
+import csv
+import pandas as pd
 
 from ItemCF import ItemCF
 
@@ -25,6 +28,20 @@ def load_cf_model(obj_file):
         cf_model = pickle.load(fr)
     return cf_model
 
+def cal_rmse(ratings, user_list):
+    error = 0.0
+    n = 0.0
+    for u in ratings:
+        for i in ratings[u]:
+            n += 1
+            if i in user_list[u]:
+                error += (user_list[u][i]-ratings[u][i]) * (user_list[u][i]-ratings[u][i])
+            else:
+                error += (user_list[u][i] - 4.0) * (user_list[u][i] - 4.0)
+    return math.sqrt(error/n)
+
+def export_rmse(out_file, result):
+    result.to_csv(path_or_buf=out_file)
 
 if __name__ == "__main__":
     '''
@@ -42,26 +59,40 @@ if __name__ == "__main__":
 
     if status == "train":
         for i in range(1, num_train + 1):
-            model = ItemCF('./train_{}.dat'.format(i))
-            model.training('./model_{}.dat'.format(i))
-            export_cf_model(model, './model_{}.dat'.format(i))
+            model = ItemCF('./data/training/train_{}.dat'.format(i))
+            model.training('./model_{}.obj'.format(i))
+            export_cf_model(model, './model_{}.obj'.format(i))
 
+
+    exp_result = pd.DataFrame(index=range(min_n, max_n+1 , delta_n), columns=range(1, num_train + 1))
     for i in range(1, num_train + 1):
-        model = load_cf_model('./model_{}.dat'.format(i))
-        user_lists, item_lists = model.read_data('./train_{}.dat'.format(i))
+        model = load_cf_model('./model_{}.obj'.format(i))
+        user_lists, item_lists = model.read_data('./data/validation/validation_{}.dat'.format(i))
+        rmse_n = []
         for n in range(min_n, max_n+1 , delta_n):
+            print('Number of Neighbors', n)
             similar_items = model.find_similar_items(n)
 
             rank_list = {}
+            ratings = {}
+
             for u in user_lists:
                 logger.debug("User " + str(u))
-                rank_list[u] = model.recommend_items(user_lists[u], similar_items)
+                ratings[u] = model.predct_ratings(user_lists[u], similar_items)
+                #rank_list[u] = model.recommend_items( ratings[u])
 
-            for k in range(min_k, max_k+1, delta_k):
-                top_k_list = {}
-                for u in user_lists:
-                    top_k_list[u] =  [str(rank_list[u][i][0]) for i in range(k)]
+            exp_result.loc[n, i] = cal_rmse(ratings, user_lists)
 
-                export_rank_list(top_k_list, './list_{}_{}_{}.txt'.format(i, n, k))
-                logger.info("Done... Check " + './list_{}_{}_{}.txt'.format(i, n, k))
+
+    export_rmse('./rmse.csv', exp_result)
+    '''
+    for k in range(min_k, max_k+1, delta_k):
+        top_k_list = {}
+        for u in user_lists:
+            top_k_list[u] =  [str(rank_list[u][i][0]) for i in range(k)]
+
+        export_rank_list(top_k_list, './list_{}_{}_{}.txt'.format(i, n, k))
+    '''
+
+    logger.info("Done... ")
 

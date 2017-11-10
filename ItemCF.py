@@ -87,22 +87,23 @@ class ItemCF:
 
         return similar_neighbors
 
-
-    def recommend_items(self, item_list, similar_neighbors):
-        score_j = defaultdict(int)
-        normalization =  defaultdict(int)
+    def predct_ratings(self, item_list, similar_neighbors):
+        rating_i = defaultdict(int)
+        normalization = defaultdict(int)
         for i in item_list:
             for j in similar_neighbors[i]:
-                score_j[j] += similar_neighbors[i][j] * item_list[i]
+                rating_i[j] += similar_neighbors[i][j] * item_list[i]
                 normalization[j] += similar_neighbors[i][j]
 
-        for j in score_j:
-            if j not in item_list:
-                score_j[j] /= (normalization[j]+1)
-            else:
-                score_j[j] = 0
+        for j in rating_i:
+            rating_i[j] /= (normalization[j] + 1)
 
-        rank_list = sorted(score_j.items(), key=operator.itemgetter(1),reverse=True)
+        return rating_i
+
+    def recommend_items(self, rating_i, train_user_list):
+        for i in train_user_list:
+            rating_i[i] = 0
+        rank_list = sorted(rating_i.items(), key=operator.itemgetter(1),reverse=True)
 
         return rank_list
 
