@@ -33,7 +33,7 @@ def cal_avg_precision(recom_lists, test_list):
     for u in recom_lists:
         hit = 0
         for i in recom_lists[u]:
-            if i in test_list:
+            if i in test_list[u]:
                 hit += 1
         precision = float(hit/len( recom_lists[u]))
         precisions.append(precision)
@@ -46,7 +46,7 @@ def cal_avg_recall(recom_lists, test_list):
     for u in test_list:
         hit = 0
         for i in test_list[u]:
-            if i in recom_lists:
+            if i in recom_lists[u]:
                 hit += 1
         recall = float(hit / len(test_list[u]))
         recalls.append(recall)
@@ -58,7 +58,7 @@ def cal_accuracy(recom_lists, test_list):
     hit = 0
     for u in test_list:
         for i in test_list[u]:
-            if i in recom_lists:
+            if i in recom_lists[u]:
                 hit += 1
                 break
 
@@ -71,14 +71,15 @@ def export_result(out_file, result):
 
 if __name__ == '__main__':
 
-    min_k = int(sys.argv[1])
-    max_k = int(sys.argv[2])
-    delta_k = int(sys.argv[3])
+    num_neighbors = int(sys.argv[1])
+    min_k = int(sys.argv[2])
+    max_k = int(sys.argv[3])
+    delta_k = int(sys.argv[4])
 
     user_lists, item_lists = read_test_data('./data/testing/test.dat')
     exp_result = pd.DataFrame(index=range(min_k, max_k+1, delta_k), columns=['Precision', 'Recall', 'Accuracy'])
     for k in range(min_k, max_k+1, delta_k):
-        recomm_lists = read_recomm_data('list_1_100_{}.txt'.format(k))
+        recomm_lists = read_recomm_data('user_cf_list_1_{}_{}.txt'.format(num_neighbors,k))
         avg_precision = cal_avg_precision(recomm_lists, user_lists)
         avg_recall = cal_avg_recall(recomm_lists, user_lists)
         accuracy = cal_accuracy(recomm_lists, user_lists)
@@ -86,4 +87,4 @@ if __name__ == '__main__':
         exp_result.loc[k, 'Recall'] = avg_recall
         exp_result.loc[k, 'Accuracy'] = accuracy
 
-    export_result('performance.csv', exp_result)
+    export_result('user_cf_performance.csv', exp_result)
