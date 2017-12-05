@@ -59,15 +59,15 @@ if __name__ == "__main__":
 
     if status == "train":
         for i in range(1, num_train + 1):
-            model = ItemCF('./data/training/train_{}.dat'.format(i))
-            model.training('./model_{}.obj'.format(i))
-            export_cf_model(model, './model_{}.obj'.format(i))
+            model = ItemCF('./data/training/train.dat'.format(i))
+            model.training('./model_item_cf.obj'.format(i))
+            export_cf_model(model, './model_item_cf.obj'.format(i))
 
 
     exp_result = pd.DataFrame(index=range(min_n, max_n+1 , delta_n), columns=range(1, num_train + 1))
     for i in range(1, num_train + 1):
-        model = load_cf_model('./model_{}.obj'.format(i))
-        user_lists, item_lists = model.read_data('./data/validation/validation_{}.dat'.format(i))
+        model = load_cf_model('./model_item_cf.obj'.format(i))
+        user_lists, item_lists = model.read_data('./data/testing/test.dat'.format(i))
         rmse_n = []
         for n in range(min_n, max_n+1 , delta_n):
             print('Number of Neighbors', n)
@@ -78,21 +78,23 @@ if __name__ == "__main__":
 
             for u in user_lists:
                 logger.debug("User " + str(u))
-                ratings[u] = model.predct_ratings(user_lists[u], similar_items)
-                #rank_list[u] = model.recommend_items( ratings[u])
+                ratings[u] = model.predict_ratings(user_lists[u], similar_items)
+                rank_list[u] = model.recommend_items(ratings[u], user_lists[u])
 
-            exp_result.loc[n, i] = cal_rmse(ratings, user_lists)
+            #exp_result.loc[n, i] = cal_rmse(ratings, user_lists)
+
+            for k in range(min_k, max_k + 1, delta_k):
+                top_k_list = {}
+                for u in user_lists:
+                    top_k_list[u] = [str(rank_list[u][i][0]) for i in range(k)]
+
+                export_rank_list(top_k_list, './list_{}_{}_{}.txt'.format(i, n, k))
 
 
-    export_rmse('./rmse.csv', exp_result)
-    '''
-    for k in range(min_k, max_k+1, delta_k):
-        top_k_list = {}
-        for u in user_lists:
-            top_k_list[u] =  [str(rank_list[u][i][0]) for i in range(k)]
+    #export_rmse('./rmse.csv', exp_result)
 
-        export_rank_list(top_k_list, './list_{}_{}_{}.txt'.format(i, n, k))
-    '''
+
+
 
     logger.info("Done... ")
 

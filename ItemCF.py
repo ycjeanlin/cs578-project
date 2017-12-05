@@ -87,7 +87,7 @@ class ItemCF:
 
         return similar_neighbors
 
-    def predct_ratings(self, item_list, similar_neighbors):
+    def predict_ratings(self, item_list, similar_neighbors):
         rating_i = defaultdict(int)
         normalization = defaultdict(int)
         for i in item_list:
@@ -142,7 +142,7 @@ if __name__ == "__main__":
     top_k_list = {}
     for u in user_lists:
         logger.debug("User " + str(u))
-        top_k_list[u] = model.recommend_items(k, user_lists[u], similar_items)
+        top_k_list[u] = model.recommend_items(user_lists[u], similar_items)
 
     logger.info("Export recommendation list...")
     export_rank_list(top_k_list, out_rank_list)
