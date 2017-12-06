@@ -63,7 +63,12 @@
     * user CF
     * item CF
     * MF
-3. Hypothesis testing for all performance metrics, T-test
+3. AUC table
     * user CF
     * item CF
     * MF
+4. Hypothesis testing table
+     * user CF
+    * item CF
+    * MF
+
