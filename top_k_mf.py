@@ -17,13 +17,10 @@ for k in [5, 10, 15, 20, 25, 30]:
     print(k)
     ratings = pd.read_csv(training_file, sep='\t',  header=0, names=[
                         'userId', 'movieId', 'rating', 'timestamp'], engine='python')
-    # ratings.head()
 
     R_df = pd.pivot_table(ratings, values='rating',
                         index='userId', columns='movieId').fillna(0)
-    # print(R_df.head())
-    # print(R_df.shape)
-
+                        
     # normalized matrix
     R = R_df.as_matrix()
     user_ratings_mean = np.mean(R, axis=1)
@@ -38,7 +35,6 @@ for k in [5, 10, 15, 20, 25, 30]:
         np.dot(U, sigma), Vt) + user_ratings_mean.reshape(-1, 1)
     preds_df = pd.DataFrame(
         all_user_predicted_ratings, columns=R_df.columns)
-    # print(preds_df.shape)
 
     # top k recommendations for users
     top_k_list = {}
@@ -68,8 +64,6 @@ for k in [5, 10, 15, 20, 25, 30]:
         else:
             hit.append(0)
 
-    # print("k:" + str(k) + "\tcase:" + str(case))
-    # print(np.mean(precision))
     precisions[k]= np.mean(precision)
     recalls[k] = np.mean(recall)
     hits[k] = np.mean(hit)
