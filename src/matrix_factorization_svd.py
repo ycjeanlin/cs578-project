@@ -5,10 +5,10 @@ import pandas as pd
 from scipy.sparse.linalg import svds
 from sklearn.metrics import mean_squared_error
 
-training_files = ['data/training/train_1.dat', 'data/training/train_2.dat',
-                  'data/training/train_3.dat', 'data/training/train_4.dat', 'data/training/train_5.dat']
-validation_files = ['data/validation/validation_1.dat', 'data/validation/validation_2.dat',
-                   'data/validation/validation_3.dat', 'data/validation/validation_4.dat', 'data/validation/validation_5.dat']
+training_files = ['../data/training/train_1.dat', '../data/training/train_2.dat',
+                  '../data/training/train_3.dat', '../data/training/train_4.dat', '../data/training/train_5.dat']
+validation_files = ['../data/validation/validation_1.dat', '../data/validation/validation_2.dat',
+                   '../data/validation/validation_3.dat', '../data/validation/validation_4.dat', '../data/validation/validation_5.dat']
 out_file = 'exp_result/mf_rmse_step5.csv' # change out file name
 # result
 rmse = {}

@@ -5,8 +5,8 @@ import pandas as pd
 from scipy.sparse.linalg import svds
 from sklearn.metrics import mean_squared_error
 
-training_file = 'data/training/train.dat'
-testing_file = 'data/testing/test.dat'
+training_file = '../data/training/train.dat'
+testing_file = '../data/testing/test.dat'
 out_file = 'exp_result/mf_performance.csv'
 m = 6
 precisions = {}
