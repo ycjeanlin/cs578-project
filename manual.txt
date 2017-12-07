@@ -21,10 +21,10 @@ We use RMSE in our experiment as metric to training the model instead of ROC cur
    Run `python3 RMSE_plot.py`. By specifying incoming csv and figure title in the program, it will generate a plot corresponding to csv file to the plot folder.
 
 Testing
-In this part we use accuracy, precision, recall and precision-recall curve to evaluate models. 
+In this part we use accuracy, precision and recall to evaluate different models. 
 1. Item-based Collaborative Filtering
 2. User-based Collaborative Filtering
 3. Matrix Factorization
    Run `python3 top_k_mf.py`. Run the model with 6 features (which chose by traning process), the progam give an csv file with accuracy, precision and recall data in different k (number of recommendations). 
-4. Accuracy, Precision, Recall and PR-Curve Plots
-   Run `python3 accuracy_plot.py`. It gives accuracy plot, precision plot, recall plot and precision-recall curve plot between different methods in the plot folder.
+4. Accuracy, Precision, Recall
+   Run `python3 accuracy_plot.py`. It gives accuracy plot, precision plot and recall plot between different methods in the plot folder.
