@@ -42,12 +42,12 @@
 1. top-5 recommendation for tuning the number of neighbor (n)
     * user-based CF
     * item-based CF
-    * how to pick the right number? (**ROC**, accuracy, precision, recall, or all)
+    * how to pick the right number? (accuracy, precision, recall, or all)
 
 ### MF model experiment
 1. top-5 recommendation for tuning the number of columns (m)
     * predict the rating and recommend based on the ratings
-    * how to pick the right number? (**ROC**, accuracy, precision, recall, RMSE or all)
+    * how to pick the right number? (accuracy, precision, recall, RMSE or all)
     * use latent features and fits into regression model for predict ratings (optional)
 
 ### Comparison between all models
@@ -63,12 +63,3 @@
     * user CF
     * item CF
     * MF
-3. AUC table
-    * user CF
-    * item CF
-    * MF
-4. Hypothesis testing table
-     * user CF
-    * item CF
-    * MF
-
