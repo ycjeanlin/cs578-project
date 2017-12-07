@@ -1,0 +1,31 @@
+External Libraries and Tools
+-------------
+We listed all exteral libraries and tools in the file requirements.txt, you can simply install all of the libraries and tools by 
+pip3 install -r requirements.txt
+
+
+Code Instruction
+-------------
+Dataset Discription
+Run python3 dataset_description.py. Plots are generated in plot folder and other information are printed to terminal.
+
+Data Preprocessing
+Train Test Split 
+
+Training
+We use RMSE in our experiment as metric to training the model instead of ROC curve in project plan since we want to get a more accuracy model based on how scores are different but not how many movies we correctly recommended.
+1. Item-based Collaborative Filtering Parameter Tuning
+2. User-based Collaborative Filtering Parameter Tuning
+3. Matrix Factorization Parameter Tuning
+   Run python3 matrix_factorization_svd.py. By specifying output file  and range of m, the program will give a csv file with RMSE in different number of features and different validation set. 
+4. RMSE Plot
+   Run python3 RMSE_plot.py. By specifying incoming csv and figure title in the program, it will generate a plot corresponding to csv file to the plot folder.
+
+Testing
+In this part we use accuracy, precision, recall and precision-recall curve to evaluate models. 
+1. Item-based Collaborative Filtering
+2. User-based Collaborative Filtering
+3. Matrix Factorization
+   Run python3 top_k_mf.py. Run the model with 6 features (which chose by traning process), the progam give an csv file with accuracy, precision and recall data in different k (number of recommendations). 
+4. Accuracy, Precision, Recall and PR-Curve Plots
+   Run python3 accuracy_plot.py. It gives accuracy plot, precision plot, recall plot and precision-recall curve plot between different methods in the plot folder.

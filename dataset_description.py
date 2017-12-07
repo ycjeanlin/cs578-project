@@ -23,9 +23,9 @@ rcParams['patch.force_edgecolor'] = True
 # movie. The third entry is the rating, in this dataset, all ratings are integers
 # in range 1 to 5. The last entry is a time stamp, which is unix seconds since 1/1/1970 UTC.
 
-ratings =  pd.read_csv('ml-100k/u.data', sep='\t',  header=0, 
+ratings =  pd.read_csv('data/ml-100k/u.data', sep='\t',  header=0, 
                        names=['userId', 'movieId', 'rating','timestamp'], engine='python').astype(int)
-print(ratings.head())
+# print(ratings.head())
 
 
 # # User Description
@@ -40,7 +40,7 @@ fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(12,5))
 plt.suptitle('User Rating Distribution',fontsize=20)
 sns.distplot(ratings['userId'].value_counts(), kde=False, ax=ax1)
 sns.distplot(ratings['userId'].value_counts(), ax=ax2)
-plt.show()
+plt.savefig('plot/user_rating.png')
 
 # # Movie Description
 # We have a total of 1682 users. They have been rated at least 1 time and at most 583
@@ -52,7 +52,7 @@ fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(12,5))
 plt.suptitle('Movie Rated Distribution',fontsize=20)
 sns.distplot(ratings['movieId'].value_counts(), kde=False, ax=ax1)
 sns.distplot(ratings['movieId'].value_counts(), ax=ax2)
-plt.show()
+plt.savefig('plot/movie_rating.png')
 
 
 # # Ratings Description
@@ -64,4 +64,4 @@ print(ratings['rating'].describe())
 fig, (ax1) = plt.subplots(ncols=1, figsize=(6,5))
 plt.suptitle('Rating Distribution',fontsize=20)
 sns.distplot(ratings['rating'], kde=False, ax=ax1)
-plt.show()
+plt.savefig('plot/rating.png')

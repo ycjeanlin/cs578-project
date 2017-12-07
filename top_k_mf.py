@@ -7,7 +7,7 @@ from sklearn.metrics import mean_squared_error
 
 training_file = 'data/training/train.dat'
 testing_file = 'data/testing/test.dat'
-
+out_file = 'exp_result/mf_performance.csv'
 m = 6
 precisions = {}
 recalls = {}
@@ -72,4 +72,4 @@ summary_df = pd.DataFrame()
 summary_df['Precision'] = pd.Series(precisions)
 summary_df['Recall'] = pd.Series(recalls)
 summary_df['Accuracy'] = pd.Series(hits)
-summary_df.to_csv('mf_performance.csv')
+summary_df.to_csv(out_file)

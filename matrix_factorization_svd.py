@@ -9,11 +9,11 @@ training_files = ['data/training/train_1.dat', 'data/training/train_2.dat',
                   'data/training/train_3.dat', 'data/training/train_4.dat', 'data/training/train_5.dat']
 validation_files = ['data/validation/validation_1.dat', 'data/validation/validation_2.dat',
                    'data/validation/validation_3.dat', 'data/validation/validation_4.dat', 'data/validation/validation_5.dat']
-out_file = 'exp_result/mf_rmse_step1.csv' # change out file name
+out_file = 'exp_result/mf_rmse_step5.csv' # change out file name
 # result
 rmse = {}
 
-for m in range(1, 25):  # change testing m and step
+for m in range(25, 76, 5):  # change testing m and step
     print("m = ", m)
     rmse[m] = [0 for _ in range(5)]
     for case in range(5):
