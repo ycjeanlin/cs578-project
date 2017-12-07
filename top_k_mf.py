@@ -69,7 +69,7 @@ for k in [5, 10, 15, 20, 25, 30]:
     hits[k] = np.mean(hit)
 
 summary_df = pd.DataFrame()
-summary_df['precision'] = pd.Series(precisions)
-summary_df['recall'] = pd.Series(recalls)
-summary_df['hit'] = pd.Series(hits)
-summary_df.to_csv('summary.csv')
+summary_df['Precision'] = pd.Series(precisions)
+summary_df['Recall'] = pd.Series(recalls)
+summary_df['Accuracy'] = pd.Series(hits)
+summary_df.to_csv('mf_performance.csv')
