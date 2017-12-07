@@ -24,12 +24,12 @@ We use RMSE in our experiment as metric to training the model instead of ROC cur
    Run `python3 RMSE_plot.py`. By specifying incoming csv and figure title in the program, it will generate a plot corresponding to csv file to the plot folder.
 
 Testing
-In this part we use accuracy, precision, recall and precision-recall curve to evaluate models. 
+In this part we use accuracy, precision and recall to evaluate different models. 
 1. Item-based Collaborative Filtering
    Run `python3 exp_item_cf.py [train/test] [k-fold] [min_n] [max_n] [delta_n] [min_k] [max_k] [delta_k]`. exp_item_cf.py is for controlling the experiment flow for parameter tuning, e.g. `python3 exp_item_cf.py train 5 100 100 10 5 30 5`. By controlling [min_k] [max_k], and [delta_k], we can specify the observing step size ([delta_k]), maximum value of k and minmum value of k. The output is rmse.csv containing the rmse with respect to each n, and top-k recommendation lists.
 2. User-based Collaborative Filtering
    Run `python3 exp_user_cf.py [train/test] [k-fold] [min_n] [max_n] [delta_n] [min_k] [max_k] [delta_k]`. exp_item_cf.py is for controlling the experiment flow for parameter tuning, e.g. `python3 exp_item_cf.py train 5 100 100 10 5 30 5`. By controlling [min_k] [max_k], and [delta_k], we can specify the observing step size ([delta_k]), maximum value of k and minmum value of k. The output is rmse.csv containing the rmse with respect to each n, and top-k recommendation lists.
 3. Matrix Factorization
    Run `python3 top_k_mf.py`. Run the model with 6 features (which chose by traning process), the progam give an csv file with accuracy, precision and recall data in different k (number of recommendations). 
-4. Accuracy, Precision, Recall and PR-Curve Plots
-   Run `python3 accuracy_plot.py`. It gives accuracy plot, precision plot, recall plot and precision-recall curve plot between different methods in the plot folder.
+4. Accuracy, Precision, Recall
+   Run `python3 accuracy_plot.py`. It gives accuracy plot, precision plot and recall plot between different methods in the plot folder.
