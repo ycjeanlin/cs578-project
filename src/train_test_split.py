@@ -27,8 +27,8 @@ def validate_train_test_split(train_file, test_file):
 
 if __name__ == "__main__":
     '''
-    Command: python train_test_split.py [path_to_data] [k-fold]
-    Example: python train_test_split.py ./data/ml-100k/u.data 5
+    Command: python3 train_test_split.py [path_to_raw_data] [k-fold]
+    Example: python3 train_test_split.py ../data/ml-100k/u.data 5
     '''
     raw_data_file = sys.argv[1]
     k = int(sys.argv[2])
@@ -53,11 +53,11 @@ if __name__ == "__main__":
             train_data[i] = train_data[i].append(u_log[:math.floor(n_train*i/k)])
             train_data[i] = train_data[i].append(u_log[math.floor(n_train*(i+1)/k):n_train])
 
-    test_data.to_csv(path_or_buf = "./data/testing/test.dat", sep="\t", header = False, index=False)
+    test_data.to_csv(path_or_buf = "../data/testing/test.dat", sep="\t", header = False, index=False)
 
     for i in range(k):
-        val_data[i].to_csv(path_or_buf = "./data/validation/validation_"+str(i+1)+".dat", sep="\t", header = False, index=False)
-        train_data[i].to_csv(path_or_buf = "./data/training/train_"+str(i+1)+".dat", sep="\t", header = False, index=False)
+        val_data[i].to_csv(path_or_buf = "../data/validation/validation_"+str(i+1)+".dat", sep="\t", header = False, index=False)
+        train_data[i].to_csv(path_or_buf = "../data/training/train_"+str(i+1)+".dat", sep="\t", header = False, index=False)
 
     # n_train = 10-2
     # for  i in range(k):
@@ -66,4 +66,4 @@ if __name__ == "__main__":
     #     print(list(range(math.floor(n_train*i/k))))
     #     print(list(range(math.floor(n_train * (i+1) / k), n_train)))
 
-    validate_train_test_split('./data/training/train.dat', './data/testing/test.dat')
+    #validate_train_test_split('../data/training/train.dat', '../data/testing/test.dat')

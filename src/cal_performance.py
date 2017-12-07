@@ -70,16 +70,21 @@ def export_result(out_file, result):
     result.to_csv(path_or_buf=out_file)
 
 if __name__ == '__main__':
+    '''
+    Command: python3 cal_performance.py [user/item] [num_neighbor] [min_k] [max_k] [delta_k]
+    Example: python3 cal_performance.py user 100 5 30 5
+    '''
 
-    num_neighbors = int(sys.argv[1])
-    min_k = int(sys.argv[2])
-    max_k = int(sys.argv[3])
-    delta_k = int(sys.argv[4])
+    model = sys.argv[1]
+    num_neighbors = int(sys.argv[2])
+    min_k = int(sys.argv[3])
+    max_k = int(sys.argv[4])
+    delta_k = int(sys.argv[5])
 
-    user_lists, item_lists = read_test_data('./data/testing/test.dat')
+    user_lists, item_lists = read_test_data('../data/testing/test.dat')
     exp_result = pd.DataFrame(index=range(min_k, max_k+1, delta_k), columns=['Precision', 'Recall', 'Accuracy'])
     for k in range(min_k, max_k+1, delta_k):
-        recomm_lists = read_recomm_data('user_cf_list_1_{}_{}.txt'.format(num_neighbors,k))
+        recomm_lists = read_recomm_data('../{}_cf_list_1_{}_{}.txt'.format(model, num_neighbors,k))
         avg_precision = cal_avg_precision(recomm_lists, user_lists)
         avg_recall = cal_avg_recall(recomm_lists, user_lists)
         accuracy = cal_accuracy(recomm_lists, user_lists)
@@ -87,4 +92,4 @@ if __name__ == '__main__':
         exp_result.loc[k, 'Recall'] = avg_recall
         exp_result.loc[k, 'Accuracy'] = accuracy
 
-    export_result('user_cf_performance.csv', exp_result)
+    export_result('../user_cf_performance.csv', exp_result)

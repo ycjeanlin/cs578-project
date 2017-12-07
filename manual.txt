@@ -1,6 +1,6 @@
 External Libraries and Tools
 -------------
-We listed all exteral libraries and tools in the file requirements.txt, you can simply install all of the libraries and tools by `pip3 install -r requirements.txt`.
+We listed all external libraries and tools in the file requirements.txt, you can simply install all of the libraries and tools by `pip3 install -r requirements.txt`.
 
 
 Code Instruction
@@ -10,11 +10,14 @@ Run `python3 dataset_description.py`. Plots are generated in plot folder and oth
 
 Data Preprocessing
 Train Test Split 
+Run `python3 train_test_split.py [path_to_raw_data] [k-fold]`. The program will split the original data into k folds, e.g. `python3 train_test_split.py ../data/ml-100k/u.data 5`. The output files are train_k.dat which is in `./data/training/train_[k].dat`, test.dat in `./data/testing/test.dat`, and validation_[k].dat in `./data/validation/validation_[k].dat`. Note that the path to raw data is `./data/ml-100k/u.data`. 
 
 Training
 We use RMSE in our experiment as metric to training the model instead of ROC curve in project plan since we want to get a more accuracy model based on how scores are different but not how many movies we correctly recommended.
 1. Item-based Collaborative Filtering Parameter Tuning
+   Run `python3 exp_item_cf.py [train/test] [k-fold] [min_n] [max_n] [delta_n] [min_k] [max_k] [delta_k]`. exp_item_cf.py is for controlling the experiment flow for parameter tuning, e.g. `python3 exp_item_cf.py train 5 10 100 10 5 5 1`. By controlling [min_n] [max_n], and [delta_n], we can specify the observing step ([delta_n]), maximum value of n and minmum value of n. The output is rmse.csv containing the rmse with respect to each n, and top-k recommendation lists.
 2. User-based Collaborative Filtering Parameter Tuning
+   Run `python3 exp_user_cf.py [train/test] [k-fold] [min_n] [max_n] [delta_n] [min_k] [max_k] [delta_k]`. exp_item_cf.py is for controlling the experiment flow for parameter tuning, e.g. `python3 exp_item_cf.py train 5 10 100 10 5 5 1`. By controlling [min_n] [max_n], and [delta_n], we can specify the observing step ([delta_n]), maximum value of n and minmum value of n. The output is rmse.csv containing the rmse with respect to each n, and top-k recommendation lists.
 3. Matrix Factorization Parameter Tuning
    Run `python3 matrix_factorization_svd.py`. By specifying output file  and range of m, the program will give a csv file with RMSE in different number of features and different validation set. 
 4. RMSE Plot
@@ -23,7 +26,9 @@ We use RMSE in our experiment as metric to training the model instead of ROC cur
 Testing
 In this part we use accuracy, precision, recall and precision-recall curve to evaluate models. 
 1. Item-based Collaborative Filtering
+   Run `python3 exp_item_cf.py [train/test] [k-fold] [min_n] [max_n] [delta_n] [min_k] [max_k] [delta_k]`. exp_item_cf.py is for controlling the experiment flow for parameter tuning, e.g. `python3 exp_item_cf.py train 5 100 100 10 5 30 5`. By controlling [min_k] [max_k], and [delta_k], we can specify the observing step size ([delta_k]), maximum value of k and minmum value of k. The output is rmse.csv containing the rmse with respect to each n, and top-k recommendation lists.
 2. User-based Collaborative Filtering
+   Run `python3 exp_user_cf.py [train/test] [k-fold] [min_n] [max_n] [delta_n] [min_k] [max_k] [delta_k]`. exp_item_cf.py is for controlling the experiment flow for parameter tuning, e.g. `python3 exp_item_cf.py train 5 100 100 10 5 30 5`. By controlling [min_k] [max_k], and [delta_k], we can specify the observing step size ([delta_k]), maximum value of k and minmum value of k. The output is rmse.csv containing the rmse with respect to each n, and top-k recommendation lists.
 3. Matrix Factorization
    Run `python3 top_k_mf.py`. Run the model with 6 features (which chose by traning process), the progam give an csv file with accuracy, precision and recall data in different k (number of recommendations). 
 4. Accuracy, Precision, Recall and PR-Curve Plots
